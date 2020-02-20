@@ -6,18 +6,18 @@ using Microsoft.Extensions.Logging;
 using ChessSE181.Models;
 namespace ChessSE181.Controllers
 {
-    public class ChatController : Controller
+    public class GameController : Controller
     {
-        private readonly ILogger<ChatController> _logger;
+        private readonly ILogger<GameController> _logger;
 
-        public ChatController(ILogger<ChatController> logger)
+        public GameController(ILogger<GameController> logger)
         {
             _logger = logger;
         }
 
-        public void Send()
+        public IActionResult Index()
         {
-            
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

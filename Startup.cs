@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using ChessSE181.Data;
+using ChessSE181.Hubs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,6 +35,15 @@ namespace ChessSE181
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSignalR();
+            services.AddSignalRCore();
+            services.AddCors(options => options.AddPolicy("CorsPolicy", 
+                builder => 
+                {
+                    builder.AllowAnyMethod().AllowAnyHeader()
+                        .WithOrigins("http://localhost:55830")
+                        .AllowCredentials();
+                }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,10 +65,23 @@ namespace ChessSE181
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthentication();
+            
             app.UseAuthorization();
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/api/chat/{id?}");
+                endpoints.MapHub<GameHub>("/api/game/{id?}");
+            });
+
+            app.UseSignalR(routes => 
+            {
+                routes.MapHub<ChatHub>("/chat");
+            });
+            
+            app.UseAuthentication();
+            app.UseCors("CorsPolicy");
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -66,6 +89,7 @@ namespace ChessSE181
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            Console.WriteLine("App loaded");
         }
     }
 }
