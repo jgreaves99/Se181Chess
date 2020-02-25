@@ -7,7 +7,7 @@ namespace ChessSE181.Hubs
     {
         public async Task SendChat(string user, string message)
         {
-            await Clients.Caller.SendAsync("ReceiveChat", user, message);
+            await Clients.All.SendAsync("ReceiveChat", user, message);
         }
     }
 }
