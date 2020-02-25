@@ -128,7 +128,7 @@
                     let message = document.getElementById("ChatMessage");
                     if(message.value === "")
                         return;
-                    connection.invoke("SendChat", message.value).catch(function (err) {
+                    connection.invoke("SendChat", "Test", message.value).catch(function (err) {
                         return console.error(err.toString());
                     });
                     message.value = "";
@@ -136,7 +136,7 @@
                 
                 $(function () {
                     const connection = new signalR.HubConnectionBuilder()
-                        .withUrl("/chat")
+                        .withUrl("/api/chat/" + Math.floor((Math.random() * 2) + 1))
                         .configureLogging(signalR.LogLevel.Information)
                         .build();
                     
