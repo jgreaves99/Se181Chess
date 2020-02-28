@@ -12,8 +12,11 @@ namespace ChessSE181.Hubs
         {
             _chatHub = chatHub;
         }
+        
         public async Task SendMove(string user, string piece)
         {
+            
+            // set turn
             await Clients.All.SendAsync(piece);
         }
 
