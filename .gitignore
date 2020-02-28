@@ -9,6 +9,7 @@ nupkg/
 .vscode
 .git/
 .idea/
+.vs/
 
 # User-specific files
 *.suo
