@@ -71,9 +71,7 @@ namespace ChessSE181
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<LobbyChatHub>("/api/chat/lobby");
-                endpoints.MapHub<LobbyChatHub>("/api/game/create");
-                endpoints.MapHub<GameChatHub>("/api/chat/{id?}");
-                endpoints.MapHub<GameLogicHub>("/api/game/{id?}");
+                endpoints.MapHub<GameHub>("/api/game");
             });
             
             app.UseAuthentication();

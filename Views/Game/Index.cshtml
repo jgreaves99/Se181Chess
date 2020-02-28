@@ -8,7 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Chess Board</title>
-    <link rel="stylesheet" type="text/css" href="bootstrap-4.4.1-dist/css/bootstrap.css" />
     <style>
         .piece {
             font-size: 35px;
@@ -178,7 +177,7 @@
             let message = document.getElementById("ChatMessage");
             if (message.value === "")
                 return;
-            connection.invoke("SendChat", message.value).catch(function (err) {
+            connection.invoke("SendChat", "Test", message.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message.value = "";
@@ -187,7 +186,7 @@
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
-                .withUrl("/chat")
+                .withUrl("/api/game")
                 .configureLogging(signalR.LogLevel.Information)
                 .build();
 
