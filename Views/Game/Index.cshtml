@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,14 +10,10 @@
     <title>Chess Board</title>
     <style>
         .piece {
-            font-size: 35px;
-            text-align: center;
+            font-size: 35px !important;
+            text-align: center !important;
         }
     </style>
-    <script>
-        var nextMove = document.getElementById("txtMove");
-        var nextPiece = document.getElementById("txtPiece");
-    </script>
 </head>
 <body>
     <center>
@@ -32,10 +28,10 @@
                     <li><a>Surrender</a></li>
                     <li><a>Backstep</a></li>
                     <li><a>Castle</a></li>
-                    <li><a>Review Rules</a></li>
-                    <li><a>Instructional Video</a></li>
+                    <li><a href="https://www.thechesswebsite.com/learn-to-play-chess/" target="_blank">Review Rules</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=t-uwGvx4V_A" target="_blank">Instructional Video</a></li>
                     <li><a>Timer On</a></li>
-                    <li><a>Credits</a></li>
+                    <li><a href="./Credits.html" target="_blank">Credits</a></li>
                     <li><a>Declare Draw</a></li>
                 </ul>
             </li>
@@ -46,91 +42,91 @@
                     <table>
                         <tr>
                             <td><label>8</label></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="a8"><div class="piece" id="blackRook1">&#9820;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="b8"><div class="piece" id="blackKnight1">&#9822;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="c8"><div class="piece" id="blackBishop1">&#9821;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="d8"><div class="piece" id="blackQueen">&#9819;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="e8"><div class="piece" id="blackKing">&#9818;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="f8"><div class="piece" id="blackBishop2">&#9821;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="g8"><div class="piece" id="blackKnight2">&#9822;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="h8"><div class="piece" id="blackRook2">&#9820;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="a8"><div class="piece" id="blackRook1" style="color:#5C374C">&#9820;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="CE6A85"><div id="b8"><div class="piece" id="blackKnight1" style="color:#5C374C">&#9822;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="c8"><div class="piece" id="blackBishop1" style="color:#5C374C">&#9821;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="d8"><div class="piece" id="blackQueen" style="color:#5C374C">&#9819;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="e8"><div class="piece" id="blackKing" style="color:#5C374C">&#9818;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="f8"><div class="piece" id="blackBishop2" style="color:#5C374C">&#9821;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="g8"><div class="piece" id="blackKnight2" style="color:#5C374C">&#9822;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="h8"><div class="piece" id="blackRook2" style="color:#5C374C">&#9820;</div></div></td>
                         </tr>
                         <tr>
                             <td><label>7</label></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="a7"><div class="piece" id="blackPawn1">&#9823;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="b7"><div class="piece" id="blackPawn2">&#9823;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="c7"><div class="piece" id="blackPawn3">&#9823;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d7"><div class="piece" id="blackPawn4">&#9823;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="e7"><div class="piece" id="blackPawn5">&#9823;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f7"><div class="piece" id="blackPawn6">&#9823;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="g7"><div class="piece" id="blackPawn7">&#9823;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="h7"><div class="piece" id="blackPawn8">&#9823;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="a7"><div class="piece" id="blackPawn1" style="color:#5C374C">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="b7"><div class="piece" id="blackPawn2" style="color:#5C374C">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="c7"><div class="piece" id="blackPawn3" style="color:#5C374C">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d7"><div class="piece" id="blackPawn4" style="color:#5C374C">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="e7"><div class="piece" id="blackPawn5" style="color:#5C374C">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f7"><div class="piece" id="blackPawn6" style="color:#5C374C">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="g7"><div class="piece" id="blackPawn7" style="color:#5C374C">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="h7"><div class="piece" id="blackPawn8" style="color:#5C374C">&#9817;</div></div></td>
                         </tr>
                         <tr>
                             <td><label>6</label></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="a6"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="b6"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="b6"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="c6"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="d6"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="d6"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="e6"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="f6"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="f6"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="g6"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="h6"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="h6"></div></td>
                         </tr>
                         <tr>
                             <td><label>5</label></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="a5"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="a5"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="b5"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="c5"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="c5"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d5"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="e5"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="e5"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f5"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="g5"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="g5"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="h5"></div></td>
                         </tr>
                         <tr>
                             <td><label>4</label></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="a4"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="b4"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="b4"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="c4"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="d4"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="d4"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="e4"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="f4"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="f4"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="g4"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="h4"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="h4"></div></td>
                         </tr>
                         <tr>
                             <td><label>3</label></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="a3"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="a3"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="b3"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="c3"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="c3"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d3"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="e3"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="e3"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f3"></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="g3"></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="g3"></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="h3"></div></td>
                         </tr>
                         <tr>
                             <td><label>2</label></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="a2"><div class="piece" id="whitePawn1">&#9817;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="b2"><div class="piece" id="whitePawn2">&#9817;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="c2"><div class="piece" id="whitePawn3">&#9817;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="d2"><div class="piece" id="whitePawn4">&#9817;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="e2"><div class="piece" id="whitePawn5">&#9817;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="f2"><div class="piece" id="whitePawn6">&#9817;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="g2"><div class="piece" id="whitePawn7">&#9817;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="h2"><div class="piece" id="whitePawn8">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="a2"><div class="piece" id="whitePawn1" style="color:#FAA275">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="b2"><div class="piece" id="whitePawn2" style="color:#FAA275">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="c2"><div class="piece" id="whitePawn3" style="color:#FAA275">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="d2"><div class="piece" id="whitePawn4" style="color:#FAA275">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="e2"><div class="piece" id="whitePawn5" style="color:#FAA275">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="f2"><div class="piece" id="whitePawn6" style="color:#FAA275">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="g2"><div class="piece" id="whitePawn7" style="color:#FAA275">&#9817;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="h2"><div class="piece" id="whitePawn8" style="color:#FAA275">&#9817;</div></div></td>
                         </tr>
                         <tr>
                             <td><label>1</label></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="a1"><div class="piece" id="whiteRook1">&#9814;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="b1"><div class="piece" id="whiteKnight1">&#9816;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="c1"><div class="piece" id="whiteBishop1">&#9815;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d1"><div class="piece" id="whiteKing">&#9812;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="e1"><div class="piece" id="whiteQueen">&#9813;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f1"><div class="piece" id="whiteBishop2">&#9815;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="939064"><div id="g1"><div class="piece" id="whiteKnight2">&#9816;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="h1"><div class="piece" id="whiteRook2">&#9814;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="a1"><div class="piece" id="whiteRook1" style="color:#FAA275">&#9820;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="b1"><div class="piece" id="whiteKnight1" style="color:#FAA275">&#9822;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="c1"><div class="piece" id="whiteBishop1" style="color:#FAA275">&#9821;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d1"><div class="piece" id="whiteKing" style="color:#FAA275">&#9818;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="e1"><div class="piece" id="whiteQueen" style="color:#FAA275">&#9819;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f1"><div class="piece" id="whiteBishop2" style="color:#FAA275">&#9822;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="g1"><div class="piece" id="whiteKnight2" style="color:#FAA275">&#9821;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="h1"><div class="piece" id="whiteRook2" style="color:#FAA275">&#9820;</div></div></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -162,6 +158,9 @@
     </center>
     <script>
         let sessionId = Math.floor(Math.random() * 2);
+        
+        var nextMove = document.getElementById("txtMove");
+        var nextPiece = document.getElementById("txtPiece");
     
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
@@ -243,7 +242,7 @@
                 let space = document.getElementById(move.toString());
                 let movedPiece = document.getElementById(piece.toString());
 
-                space.value = movedPiece;
+                space.value = movedPiece.value;
             });
             
             connection.on("Register", (gameId) => {
