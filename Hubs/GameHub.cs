@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ChessSE181.Game;
-using ChessSE181.Services;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
@@ -58,19 +57,19 @@ namespace ChessSE181.Hubs
         
         public async Task SendMove(string sessionId, string user, string from, string to)
         {
-            Board board = new Board();
-            
-            int fromx, fromy, tox, toy;
-            fromx = from[0];
-            fromy = from[1];
-            tox = to[0];
-            toy = to[1];
-
-            Tile t = board.getSpace(fromx, fromy);
-            t.setX(tox);
-            t.setY(toy);
-            board.setSpace(fromx, fromy, null);
-            board.setSpace(tox, toy, t);
+            // Board board = new Board();
+            //
+            // int fromx, fromy, tox, toy;
+            // fromx = from[0];
+            // fromy = from[1];
+            // tox = to[0];
+            // toy = to[1];
+            //
+            // Tile t = board.getSpace(fromx, fromy);
+            // t.setX(tox);
+            // t.setY(toy);
+            // board.setSpace(fromx, fromy, null);
+            // board.setSpace(tox, toy, t);
 
             // Console.WriteLine();
             // set turn
