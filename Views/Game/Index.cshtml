@@ -161,12 +161,14 @@
         </table>
     </center>
     <script>
+        let sessionId = Math.floor(Math.random() * 2);
+    
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
             let message2 = document.getElementById("MoveID");
             if (message1.value === "" || message2.value === "")
                 return;
-            connection.invoke("SendMove", message1.value, message2.value).catch(function (err) {
+            connection.invoke("SendMove", sessionId, "Test", message1.value, message2.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message1.value = "";
@@ -177,7 +179,7 @@
             let message = document.getElementById("ChatMessage");
             if (message.value === "")
                 return;
-            connection.invoke("SendChat", "Test", message.value).catch(function (err) {
+            connection.invoke("SendChat", sessionId, "Test", message.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message.value = "";
@@ -186,7 +188,7 @@
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
-                .withUrl("/api/game/" + Math.floor(Math.random() * 2))
+                .withUrl("/api/game?sessionId=" + sessionId)
                 .configureLogging(signalR.LogLevel.Information)
                 .build();
 
@@ -243,6 +245,10 @@
 
                 space.value = movedPiece;
             });
+            
+            connection.on("Register", (gameId) => {
+                sessionId = gameId.toString();
+             });
 
             async function start() {
                 try {

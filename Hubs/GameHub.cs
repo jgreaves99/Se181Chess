@@ -27,7 +27,7 @@ namespace ChessSE181.Hubs
 
         public override async Task OnConnectedAsync()
         {
-            var sessionId = Context.GetHttpContext().Request.Query["game"];
+            var sessionId = Context.GetHttpContext().Request.Query["sessionId"];
             
             try
             {
@@ -42,7 +42,7 @@ namespace ChessSE181.Hubs
             Console.WriteLine("Session ID: " + sessionId);
             await base.OnConnectedAsync();
             await Clients.Caller.SendAsync("Register", sessionId);
-                 }
+        }
         
         /*
         public override Task OnDisconnected()
@@ -56,11 +56,8 @@ namespace ChessSE181.Hubs
         }
         */
         
-        public async Task SendMove(string user, string from, string to)
+        public async Task SendMove(string sessionId, string user, string from, string to)
         {
-            
-            
-            
             Board board = new Board();
             
             int fromx, fromy, tox, toy;
@@ -77,32 +74,32 @@ namespace ChessSE181.Hubs
 
             // Console.WriteLine();
             // set turn
-            await Clients.All.SendAsync("ReceiveMove", fromx, fromy, tox, toy);
+            await Clients.Group(sessionId).SendAsync("ReceiveMove", fromx, fromy, tox, toy);
         }
 
-        public async Task EndGame(string user)
+        public async Task EndGame(string sessionId, string user)
         {
             
         }
         
-        public async Task Surrender(string user)
+        public async Task Surrender(string sessionId, string user)
         {
-            await SendChat("System", user + " has surrendered.");
+            await SendChat(sessionId, "System", user + " has surrendered.");
         }
 
-        public async Task EnableTimer(string user)
+        public async Task EnableTimer(string sessionId, string user)
         {
-            await SendChat("System", user + " has requested the timer to be enabled.");
+            await SendChat(sessionId, "System", user + " has requested the timer to be enabled.");
         }
         
-        public async Task DisableTimer(string user, string message)
+        public async Task DisableTimer(string sessionId, string user, string message)
         {
-            await SendChat("System", user + " has disabled the timer.");
+            await SendChat(sessionId, "System", user + " has disabled the timer.");
         }
         
-        public async Task SendChat(string user, string message)
+        public async Task SendChat(string sessionId, string user, string message)
         {
-            await Clients.All.SendAsync("ReceiveChat", user, message);
+            await Clients.Group(sessionId).SendAsync("ReceiveChat", user, message);
         }
 
         private Board _getBoard(string session)
