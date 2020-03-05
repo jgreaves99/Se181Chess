@@ -158,9 +158,6 @@
     </center>
     <script>
         let sessionId = Math.floor(Math.random() * 2);
-        
-        var nextMove = document.getElementById("txtMove");
-        var nextPiece = document.getElementById("txtPiece");
     
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
@@ -238,11 +235,12 @@
                 scroll.scrollTop = scroll.scrollHeight;
             });
 
-            connection.on("ReceiveMove", (user, piece, move) => {
+            connection.on("ReceiveMove", (piece, move) => {
                 let space = document.getElementById(move.toString());
                 let movedPiece = document.getElementById(piece.toString());
 
-                space.value = movedPiece.value;
+                space.innerHTML = movedPiece.innerHTML;
+                movedPiece.innerHTML = "";
             });
             
             connection.on("Register", (gameId) => {
