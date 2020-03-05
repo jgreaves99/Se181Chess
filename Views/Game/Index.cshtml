@@ -186,7 +186,7 @@
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
-                .withUrl("/api/game")
+                .withUrl("/api/game/" + Math.floor(Math.random() * 2))
                 .configureLogging(signalR.LogLevel.Information)
                 .build();
 

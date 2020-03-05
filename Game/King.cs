@@ -8,5 +8,10 @@ namespace ChessSE181.Game
         {
             
         }
+
+        public override void move(Board board, Tile start, Tile end)
+        {
+            
+        }
     }
 }

@@ -6,5 +6,10 @@
         {
             
         }
+
+        public override void move(Board board, Tile start, Tile end)
+        {
+            
+        }
     }
 }
