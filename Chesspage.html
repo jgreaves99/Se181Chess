@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Chess Board</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap-4.4.1-dist/css/bootstrap.css" />
     <style>
         .piece {
             font-size: 35px;
@@ -174,11 +175,7 @@
             let message = document.getElementById("ChatMessage");
             if (message.value === "")
                 return;
-<<<<<<< HEAD:Chesspage.html
             connection.invoke("SendChat", gameSessionId, message.value).catch(function (err) {
-=======
-            connection.invoke("SendChat", "Test", message.value).catch(function (err) {
->>>>>>> 9e8074895654d07d5f99384ae522bfaf1a9577c6:Views/Game/Index.cshtml
                 return console.error(err.toString());
             });
             message.value = "";
