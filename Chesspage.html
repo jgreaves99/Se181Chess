@@ -15,10 +15,6 @@
             text-align: center;
         }
     </style>
-    <script>
-        var nextMove = document.getElementById("txtMove");
-        var nextPiece = document.getElementById("txtPiece");
-    </script>
 </head>
 <body>
     <center>
@@ -33,10 +29,10 @@
                     <li><a>Surrender</a></li>
                     <li><a>Backstep</a></li>
                     <li><a>Castle</a></li>
-                    <li><a>Review Rules</a></li>
-                    <li><a>Instructional Video</a></li>
+                    <li><a href="https://www.thechesswebsite.com/learn-to-play-chess/" target="_blank">Review Rules</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=t-uwGvx4V_A" target="_blank">Instructional Video</a></li>
                     <li><a>Timer On</a></li>
-                    <li><a>Credits</a></li>
+                    <li><a href="./Credits.html" target="_blank">Credits</a></li>
                     <li><a>Declare Draw</a></li>
                 </ul>
             </li>
@@ -162,12 +158,13 @@
         </table>
     </center>
     <script>
+        var gameSessionId;
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
             let message2 = document.getElementById("MoveID");
             if (message1.value === "" || message2.value === "")
                 return;
-            connection.invoke("SendMove", message1.value, message2.value).catch(function (err) {
+            connection.invoke("SendMove", gameSessionId, message1.value, message2.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message1.value = "";
@@ -178,7 +175,7 @@
             let message = document.getElementById("ChatMessage");
             if (message.value === "")
                 return;
-            connection.invoke("SendChat", message.value).catch(function (err) {
+            connection.invoke("SendChat", gameSessionId, message.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message.value = "";
@@ -187,7 +184,7 @@
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
-                .withUrl("/chat")
+                .withUrl("/api/game")
                 .configureLogging(signalR.LogLevel.Information)
                 .build();
 
@@ -225,6 +222,10 @@
                 return console.error(err.toString());
             });
 
+            connection.on("Register", (gameId) => {
+                gameSessionId = gameId;
+            });
+
             connection.on("ReceiveChat", (user, message) => {
                 const li = document.createElement("li");
                 let name = document.createElement("strong");
@@ -242,7 +243,7 @@
                 let space = document.getElementById(move.toString());
                 let movedPiece = document.getElementById(piece.toString());
 
-                space.value = movedPiece;
+                space.value = movedPiece.value;
             });
 
             async function start() {
