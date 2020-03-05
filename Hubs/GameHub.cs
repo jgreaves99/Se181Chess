@@ -74,7 +74,7 @@ namespace ChessSE181.Hubs
 
             // Console.WriteLine();
             // set turn
-            await Clients.Group(sessionId).SendAsync("ReceiveMove", fromx, fromy, tox, toy);
+            await Clients.Group(sessionId).SendAsync("ReceiveMove", from, to);
         }
 
         public async Task EndGame(string sessionId, string user)
