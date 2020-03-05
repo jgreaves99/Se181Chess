@@ -62,5 +62,12 @@ namespace ChessSE181.Game
             tile = end;
             return true;
         }
+
+        public abstract void move(Board board, Tile start, Tile end);
+
+        public void movePiece(Board board, Tile start, Tile end)
+        {
+            
+        }
     }
 }

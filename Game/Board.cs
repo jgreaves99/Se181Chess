@@ -5,15 +5,21 @@
         Tile[][] spaces; 
   
         public Board() 
-        { 
-            this.resetBoard(); 
+        {
+            spaces = new Tile[8][];
+            resetBoard(); 
         } 
   
         public Tile getSpace(int x, int y) 
         {
             return spaces[x][y]; 
-        } 
-  
+        }
+
+        public void setSpace(int x, int y, Tile tile)
+        {
+            spaces[x][y] = tile;
+        }
+
         public void resetBoard() 
         {    
             Rook whiteRook1 = new Rook("white");

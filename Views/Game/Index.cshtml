@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -145,7 +145,7 @@
                     <input type="text" id="PieceID" style="height:30px; width:330px; vertical-align:middle" />
                     <button id="SendPiece" type="button" class="btn btn-primary" style="height:30px; width:100px">Select</button> <br /><br />
                     <label>Move Piece to:</label>
-                    <input type="text" id="MoveID" style="height:30px; width:330px; vertical-align:middle" />
+                    <input type="text" id="MoveID" style="height:30px; width:330px; vertical-align:middle"/>
                     <button id="SendMove" type="button" class="btn btn-primary" style="height:30px; width:100px">Make Move</button>
                 </td>
                 <td>
@@ -157,13 +157,17 @@
         </table>
     </center>
     <script>
-        var gameSessionId;
+        let sessionId = Math.floor(Math.random() * 2);
+        
+        var nextMove = document.getElementById("txtMove");
+        var nextPiece = document.getElementById("txtPiece");
+    
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
             let message2 = document.getElementById("MoveID");
             if (message1.value === "" || message2.value === "")
                 return;
-            connection.invoke("SendMove", gameSessionId, message1.value, message2.value).catch(function (err) {
+            connection.invoke("SendMove", sessionId, "Test", message1.value, message2.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message1.value = "";
@@ -174,11 +178,7 @@
             let message = document.getElementById("ChatMessage");
             if (message.value === "")
                 return;
-<<<<<<< HEAD:Chesspage.html
-            connection.invoke("SendChat", gameSessionId, message.value).catch(function (err) {
-=======
-            connection.invoke("SendChat", "Test", message.value).catch(function (err) {
->>>>>>> 9e8074895654d07d5f99384ae522bfaf1a9577c6:Views/Game/Index.cshtml
+            connection.invoke("SendChat", sessionId, "Test", message.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message.value = "";
@@ -187,7 +187,7 @@
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
-                .withUrl("/api/game")
+                .withUrl("/api/game?sessionId=" + sessionId)
                 .configureLogging(signalR.LogLevel.Information)
                 .build();
 
@@ -225,10 +225,6 @@
                 return console.error(err.toString());
             });
 
-            connection.on("Register", (gameId, user) => {
-                gameSessionId = gameId;
-            });
-
             connection.on("ReceiveChat", (user, message) => {
                 const li = document.createElement("li");
                 let name = document.createElement("strong");
@@ -248,6 +244,10 @@
 
                 space.value = movedPiece.value;
             });
+            
+            connection.on("Register", (gameId) => {
+                sessionId = gameId.toString();
+             });
 
             async function start() {
                 try {
