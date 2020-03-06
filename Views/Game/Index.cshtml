@@ -15,7 +15,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #E6E6FA;">
     <center>
         <h1>ChessBored</h1>
         <ul class="nav nav-tabs">
@@ -31,7 +31,8 @@
                     <li><a href="https://www.thechesswebsite.com/learn-to-play-chess/" target="_blank">Review Rules</a></li>
                     <li><a href="https://www.youtube.com/watch?v=t-uwGvx4V_A" target="_blank">Instructional Video</a></li>
                     <li><a>Timer On</a></li>
-                    <li><a href="./Credits.html" target="_blank">Credits</a></li>
+                    <li><a href="../../Views/Game/Credits.html" target="_blank">Credits</a></li>
+                    <li><a href="../../Views/Game/Tutorial.html" target="_blank">Tutorial</a></li>
                     <li><a>Declare Draw</a></li>
                 </ul>
             </li>
@@ -122,10 +123,10 @@
                             <td height="50px" width="50px" bgcolor="ce6a85"><div id="a1"><div class="piece" id="whiteRook1" style="color:#FAA275">&#9820;</div></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="b1"><div class="piece" id="whiteKnight1" style="color:#FAA275">&#9822;</div></div></td>
                             <td height="50px" width="50px" bgcolor="ce6a85"><div id="c1"><div class="piece" id="whiteBishop1" style="color:#FAA275">&#9821;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d1"><div class="piece" id="whiteKing" style="color:#FAA275">&#9818;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="e1"><div class="piece" id="whiteQueen" style="color:#FAA275">&#9819;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f1"><div class="piece" id="whiteBishop2" style="color:#FAA275">&#9822;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="g1"><div class="piece" id="whiteKnight2" style="color:#FAA275">&#9821;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d1"><div class="piece" id="whiteKing" style="color:#FAA275">&#9819;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="e1"><div class="piece" id="whiteQueen" style="color:#FAA275">&#9818;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f1"><div class="piece" id="whiteBishop2" style="color:#FAA275">&#9821;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="g1"><div class="piece" id="whiteKnight2" style="color:#FAA275">&#9822;</div></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="h1"><div class="piece" id="whiteRook2" style="color:#FAA275">&#9820;</div></div></td>
                         </tr>
                         <tr>
@@ -141,17 +142,18 @@
                         </tr>
                     </table>
                     <br />
-                    <label>Select Piece to move:</label>
+                    <label>Select Piece to move:</label><br/>
                     <input type="text" id="PieceID" style="height:30px; width:330px; vertical-align:middle" />
-                    <button id="SendPiece" type="button" class="btn btn-primary" style="height:30px; width:100px">Select</button> <br /><br />
-                    <label>Move Piece to:</label>
+                    <button id="SendPiece" type="button" class="btn btn-primary" style="background-color:#5C374C; height:30px; width:100px">Select</button> <br /><br />
+                    <label>Move Piece to:</label> <br/>
                     <input type="text" id="MoveID" style="height:30px; width:330px; vertical-align:middle"/>
-                    <button id="SendMove" type="button" class="btn btn-primary" style="height:30px; width:100px">Make Move</button>
+                    <button id="SendMove" type="button" class="btn btn-primary" style="background-color:#5C374C; height:30px; width:100px">Make Move</button>
                 </td>
                 <td>
-                    <ul id="ChatTable" style="border:solid; height:400px; width:400px; list-style-type: none; list-style-position: inside; margin: 5px; padding: 5px; word-wrap: break-word; overflow:hidden; overflow-y:scroll;"></ul><br />
-                    <input type="text" id="ChatMessage" style="height:30px; width:330px; vertical-align:middle" />
-                    <button id="SendChat" type="button" class="btn btn-primary" style="vertical-align:center; horiz-align:center; height:30px; width:70px">Send</button>
+                    <label style="font-size: 20px;">Chat</label>                
+                    <ul id="ChatTable" style="border:solid; height:400px; width:400px; list-style-type: none; list-style-position: inside; margin: 5px; padding: 5px; word-wrap: break-word; overflow:hidden; overflow-y:scroll; background-color: white"></ul><br/>
+                    <input type="text" id="ChatMessage" style="height:30px; width:300px; vertical-align:middle"/>
+                    <button id="SendChat" type="button" class="btn btn-primary" style="background-color:#5C374C; #vertical-align:center; horiz-align:center; height:30px; width:70px">Send</button>
                 </td>
             </tr>
         </table>
