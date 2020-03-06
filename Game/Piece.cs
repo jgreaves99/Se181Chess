@@ -5,25 +5,29 @@ namespace ChessSE181.Game
     public abstract class Piece
     {
         private Tile tile;
-        private bool dead = false;
-        private bool white = false;
-        private bool black = false;
+        private bool _dead = false;
+        private bool _white = false;
+        private bool _black = false;
+        private bool _HasMoved { get; set; }
 
         public Piece(string color)
         {
-            if (color == "white")
+            _HasMoved = false;
+            
+            switch (color)
             {
-                this.setWhite(white);
-            }
-            if (color == "black")
-            {
-                this.setBlack(black);
+                case "white":
+                    setWhite(_white);
+                    break;
+                case "black":
+                    setBlack(_black);
+                    break;
             }
         }
         
         public bool isWhite() 
         { 
-            return this.white == true; 
+            return this._white == true; 
         }
 
         public void setTile(Tile start)
@@ -32,42 +36,37 @@ namespace ChessSE181.Game
         }
         public void setWhite(bool white) 
         { 
-            this.white = white; 
+            this._white = white; 
         }
         
         public bool isBlack() 
         { 
-            return this.black == true; 
+            return this._black == true; 
         } 
   
         public void setBlack(bool black) 
         { 
-            this.black = black; 
+            this._black = black; 
         }
         
         public bool isDead() 
         { 
-            return this.dead == true; 
+            return this._dead == true; 
         } 
   
         public void setDead(bool dead) 
         { 
-            this.dead = dead; 
+            this._dead = dead; 
         }
 
-        public virtual bool canMove(Board board, Tile start, Tile end)
-        {
-            start.setPiece(null);
-            end.setPiece(this);
-            tile = end;
-            return true;
-        }
+        //public abstract bool canMove(Board board, Tile start, Tile end);
 
         public abstract void move(Board board, Tile start, Tile end);
 
-        public void movePiece(Board board, Tile start, Tile end)
+        public void PieceMoved()
         {
-            
+            if (!_HasMoved)
+                _HasMoved = true;
         }
     }
 }
