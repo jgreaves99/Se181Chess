@@ -175,7 +175,7 @@
             let message = document.getElementById("ChatMessage");
             if (message.value === "")
                 return;
-            connection.invoke("SendChat", sessionId, "Test", message.value).catch(function (err) {
+            connection.invoke("SendChatToGame", sessionId, "Test", message.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message.value = "";
