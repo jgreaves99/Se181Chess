@@ -57,36 +57,46 @@ namespace ChessSE181.Hubs
         public async Task SendMove(string sessionId, string user, string from, string to)
         {
             Console.WriteLine("--NEW SEND MOVE CALL--");
+            
             var board = _getBoard(sessionId);
-            int fromx, fromy, tox, toy;
-            fromx = char.ToUpper(from[0]) - 64 - 1;
-            fromy = from[1] - 48 - 1; // extra -1 because array starts at 0 and front end starts at 1
-            tox = char.ToUpper(to[0]) - 64 - 1;
-            toy = to[1] - 48 - 1;
+            
+            var fromX = char.ToUpper(@from[0]) - 64 - 1;
+            var fromY = @from[1] - 48 - 1;
+            var toX = char.ToUpper(to[0]) - 64 - 1;
+            var toY = to[1] - 48 - 1;
 
-            if (new[] {fromx, fromy, tox, toy}.Any(i => i < 0 || i > 7))
+            if (new[] {fromX, fromY, toX, toY}.Any(i => i < 0 || i > 7))
             {
                 await SendMessageToUser(Clients.Caller, "Invalid move: Index out of bounds.");
                 return;
             }
 
-            Console.WriteLine("{0}, {1}, {2}, {3}", fromx, fromy, tox, toy);
+            if (fromX == toX && fromY == toY)
+                return;
+
+            Console.WriteLine("{0}, {1}, {2}, {3}", fromX, fromY, toX, toY);
             
-            var tileFrom = board.GetSpace(fromx, fromy);
-            var tileTo = board.GetSpace(tox, toy);
-            
-            string pieceFrom, pieceTo;
+            var tileFrom = board.GetSpace(fromX, fromY);
+            var tileTo = board.GetSpace(toX, toY);
+
             if (tileFrom.getPiece() == null)
             {
                 await SendMessageToUser(Clients.Caller, "Invalid move: trying to move a piece that isn't there.");
                 return;
             }
-            pieceFrom = tileFrom.getPiece().GetType().ToString();
-            pieceTo = tileTo.getPiece() == null ? "null" : tileTo.getPiece().GetType().ToString();
+            var pieceFrom = tileFrom.getPiece().GetType().ToString();
+            var pieceTo = tileTo.getPiece() == null ? "null" : tileTo.getPiece().GetType().ToString();
 
             Console.WriteLine("{0}, {1}, {2}", pieceFrom, tileFrom.getX(), tileFrom.getY());
             Console.WriteLine("{0}, {1}, {2}", pieceTo, tileTo.getX(), tileTo.getY());
-            
+
+            var piece = tileFrom.getPiece();
+            if (!piece.CanMove(board, fromX, fromY, toX, toY))
+            {
+                await SendMessageToUser(Clients.Caller, "Invalid move: cannot move piece there.");
+                return;
+            }
+
             board.SetSpace(tileTo.getX(), tileTo.getY(), tileFrom.getPiece());
             board.SetSpace(tileFrom.getX(), tileFrom.getY(), null);
             
