@@ -12,6 +12,12 @@ namespace ChessSE181.Game
 
         public override bool CanMove(Board board, int fromX, int fromY, int toX, int toY)
         {
+            if(board == null)
+            {
+                throw new ArgumentNullException(nameof(board));
+            }
+
+
             // bishops can only move diagonally, dx must equal dy
             if (Math.Abs(toX - fromX) != Math.Abs(toY - fromY)) return false;
             
@@ -19,7 +25,7 @@ namespace ChessSE181.Game
             return !IsPathBlocked(board, fromX, fromY, toX, toY);
         }
         
-        private new bool IsPathBlocked(Board board, int fromX, int fromY, int toX, int toY)
+        private bool IsPathBlocked(Board board, int fromX, int fromY, int toX, int toY)
         {
             if (base.IsPathBlocked(board, toX, toY)) return true;
             for (var i = 0; i < Math.Abs(toX - fromX); i++)

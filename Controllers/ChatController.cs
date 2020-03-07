@@ -15,7 +15,7 @@ namespace ChessSE181.Controllers
             _logger = logger;
         }
 
-        public void Send()
+        static public void Send()
         {
             
         }

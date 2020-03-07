@@ -12,6 +12,11 @@ namespace ChessSE181.Game
 
         public override bool CanMove(Board board, int fromX, int fromY, int toX, int toY)
         {
+            if (board == null)
+            {
+                throw new ArgumentNullException(nameof(board));
+            }
+
             var dx = Math.Abs(toX - fromX);
             var dy = Math.Abs(toY - fromY);
             
@@ -20,10 +25,10 @@ namespace ChessSE181.Game
                 return false;
 
             // otherwise just check if path is blocked
-            return !IsPathBlocked(board, fromX, fromY, toX, toY);
+            return !IsPathBlocked(board, toX, toY);
         }
 
-        private new bool IsPathBlocked(Board board, int fromX, int fromY, int toX, int toY)
+        private new bool IsPathBlocked(Board board, int toX, int toY)
         {
             return base.IsPathBlocked(board, toX, toY);
         }

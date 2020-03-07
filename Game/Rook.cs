@@ -18,10 +18,10 @@ namespace ChessSE181.Game
             if (dx != 0 && dy != 0) return false;
             
             // otherwise just check if path is blocked
-            return !IsPathBlocked(board, fromX, fromY, toX, toY);
+            return !IsPathBlocked(board, toX, toY);
         }
 
-        private new bool IsPathBlocked(Board board, int fromX, int fromY, int toX, int toY)
+        private new bool IsPathBlocked(Board board, int toX, int toY)
         {
             return base.IsPathBlocked(board, toX, toY);
         }

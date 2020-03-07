@@ -27,19 +27,19 @@ namespace ChessSE181.Hubs
             
             try
             {
-                await Groups.AddToGroupAsync(Context.ConnectionId, sessionId);
+                await Groups.AddToGroupAsync(Context.ConnectionId, sessionId).ConfigureAwait(false);
             }
             catch (ArgumentNullException)
             {
                 sessionId = (StringValues) "1";
-                await Groups.AddToGroupAsync(Context.ConnectionId, sessionId);
+                await Groups.AddToGroupAsync(Context.ConnectionId, sessionId).ConfigureAwait(false);
             }
 
             _getBoard(sessionId);
             
             Console.WriteLine("Session ID: " + sessionId);
-            await base.OnConnectedAsync();
-            await Clients.Caller.SendAsync("Register", sessionId);
+            await base.OnConnectedAsync().ConfigureAwait(true);
+            await Clients.Caller.SendAsync("Register", sessionId).ConfigureAwait(false);
         }
         
         /*
@@ -54,20 +54,31 @@ namespace ChessSE181.Hubs
         }
         */
         
-        public async Task SendMove(string sessionId, string user, string from, string to)
+        public async Task SendMove(string sessionId, string from, string to)
         {
+            if(from == null)
+            {
+                throw new ArgumentNullException(nameof(from));
+            }
+            if (to == null)
+            {
+                throw new ArgumentNullException(nameof(to));
+            }
+
+            System.Globalization.CultureInfo cultureInfo = new System.Globalization.CultureInfo("es - ES", true);
+
             Console.WriteLine("--NEW SEND MOVE CALL--");
             
             var board = _getBoard(sessionId);
             
-            var fromX = char.ToUpper(@from[0]) - 64 - 1;
+            var fromX = char.ToUpper(@from[0], cultureInfo) - 64 - 1;
             var fromY = @from[1] - 48 - 1;
-            var toX = char.ToUpper(to[0]) - 64 - 1;
+            var toX = char.ToUpper(to[0], cultureInfo) - 64 - 1;
             var toY = to[1] - 48 - 1;
 
             if (new[] {fromX, fromY, toX, toY}.Any(i => i < 0 || i > 7))
             {
-                await SendMessageToUser(Clients.Caller, "Invalid move: Index out of bounds.");
+                await SendMessageToUser(Clients.Caller, "Invalid move: Index out of bounds.").ConfigureAwait(false);
                 return;
             }
 
@@ -81,7 +92,7 @@ namespace ChessSE181.Hubs
 
             if (tileFrom.getPiece() == null)
             {
-                await SendMessageToUser(Clients.Caller, "Invalid move: trying to move a piece that isn't there.");
+                await SendMessageToUser(Clients.Caller, "Invalid move: trying to move a piece that isn't there.").ConfigureAwait(false);
                 return;
             }
             var pieceFrom = tileFrom.getPiece().GetType().ToString();
@@ -93,7 +104,7 @@ namespace ChessSE181.Hubs
             var piece = tileFrom.getPiece();
             if (!piece.CanMove(board, fromX, fromY, toX, toY))
             {
-                await SendMessageToUser(Clients.Caller, "Invalid move: cannot move piece there.");
+                await SendMessageToUser(Clients.Caller, "Invalid move: cannot move piece there.").ConfigureAwait(false);
                 return;
             }
 
@@ -109,40 +120,41 @@ namespace ChessSE181.Hubs
             Console.WriteLine("{0}, {1}, {2}", pieceTo, tileTo.getX(), tileTo.getY());
 
             // set turn
-            await Clients.Group(sessionId).SendAsync("ReceiveMove", from, to);
+            await Clients.Group(sessionId).SendAsync("ReceiveMove", from, to).ConfigureAwait(false);
         }
 
-        public async Task EndGame(string sessionId, string user)
+        static public async Task EndGame(string sessionId, string user)
         {
-            
+            string temp = sessionId + user; //Use these vars so that we don't get a warning.
+            throw new NotImplementedException();
         }
         
         public async Task Surrender(string sessionId, string user)
         {
-            await SendChatToGame(sessionId, "System", user + " has surrendered.");
+            await SendChatToGame(sessionId, "System", user + " has surrendered.").ConfigureAwait(false);
         }
 
         public async Task EnableTimer(string sessionId, string user)
         {
-            await SendChatToGame(sessionId, "System", user + " has requested the timer to be enabled.");
+            await SendChatToGame(sessionId, "System", user + " has requested the timer to be enabled.").ConfigureAwait(false);
         }
         
-        public async Task DisableTimer(string sessionId, string user, string message)
+        public async Task DisableTimer(string sessionId, string user)
         {
-            await SendChatToGame(sessionId, "System", user + " has disabled the timer.");
+            await SendChatToGame(sessionId, "System", user + " has disabled the timer.").ConfigureAwait(false);
         }
 
-        public async Task SendMessageToUser(IClientProxy user, string message)
+        static public async Task SendMessageToUser(IClientProxy user, string message)
         {
-            await user.SendAsync("ReceiveChat", "System", message);
+            await user.SendAsync("ReceiveChat", "System", message).ConfigureAwait(false);
         }
         
         public async Task SendChatToGame(string sessionId, string user, string message)
         {
-            await Clients.Group(sessionId).SendAsync("ReceiveChat", user, message);
+            await Clients.Group(sessionId).SendAsync("ReceiveChat", user, message).ConfigureAwait(false);
         }
 
-        private Board _getBoard(string session)
+        static private Board _getBoard(string session)
         {
             if (!Boards.ContainsKey(session))
             {

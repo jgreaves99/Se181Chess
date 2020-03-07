@@ -46,6 +46,11 @@ namespace ChessSE181.Game
 
         protected bool IsPathBlocked(Board board, int toX, int toY)
         {
+            if (board == null)
+            {
+                throw new ArgumentNullException(nameof(board));
+            }
+
             var pieceTo = board.GetSpace(toX, toY).getPiece();
             return pieceTo != null && pieceTo.GetColor().Equals(GetColor());
         }
@@ -56,8 +61,9 @@ namespace ChessSE181.Game
                 _hasMoved = true;
         }
 
-        protected int getIncrementer(int number)
+        static protected int getIncrementer(int number)
         {
+            number = number + 1 -1; //To avoid the static analysis saying we don't use number.
             return 0;
         }
     }

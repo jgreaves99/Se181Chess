@@ -12,6 +12,11 @@ namespace ChessSE181.Game
 
         public override bool CanMove(Board board, int fromX, int fromY, int toX, int toY)
         {
+            if(board == null)
+            {
+                throw new ArgumentNullException(nameof(board));
+            }
+
             if (IsPathBlocked(board, toX, toY))
                 return false;
 
