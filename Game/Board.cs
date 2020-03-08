@@ -1,18 +1,41 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using System.Media;
+using Microsoft.AspNetCore.SignalR;
 
 namespace ChessSE181.Game
 {
     public class Board
     {
         private readonly Tile[,] _spaces;
-        //private readonly IClientProxy _white, _black;
+        private IClientProxy _white;
+        private IClientProxy _black;
+        private IClientProxy _currentTurn;
 
         public Board() 
         {
             _spaces = new Tile[8, 8];
             ResetBoard(); 
-        } 
-  
+        }
+        
+        public void SetWhite(IClientProxy user)
+        {
+            _white = user;
+        }
+        
+        public void SetBlack(IClientProxy user)
+        {
+            _black = user;
+        }
+
+        public IClientProxy GetWhite()
+        {
+            return _white;
+        }
+        
+        public IClientProxy GetBlack()
+        {
+            return _black;
+        }
+
         public Tile GetSpace(int x, int y) 
         {
             return _spaces[x, y]; 
@@ -24,8 +47,27 @@ namespace ChessSE181.Game
             t.setPiece(piece);
         }
 
-        public void ResetBoard() 
-        {    
+        public bool IsInitialized()
+        {
+            if (_white == null || _black == null) return false;
+            if (_currentTurn == null)
+                _currentTurn = _white;
+            return true;
+        }
+
+        public IClientProxy GetCurrentTurn()
+        {
+            return _currentTurn;
+        }
+
+        public IClientProxy SwitchTurn()
+        {
+            _currentTurn = _currentTurn.Equals(_white) ? _black : _white;
+            return _currentTurn;
+        }
+
+        public void ResetBoard()
+        {
             var whiteRook1 = new Rook("white");
             var whiteKnight1 =  new Knight("white");
             var whiteBishop1 = new Bishop("white");

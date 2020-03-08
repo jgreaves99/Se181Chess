@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace ChessSE181.Game
@@ -7,8 +8,8 @@ namespace ChessSE181.Game
     {
         public enum Color
         {
-            White,
-            Black
+            [Description("White")] White,
+            [Description("Black")] Black
         }
         
         private Tile tile;

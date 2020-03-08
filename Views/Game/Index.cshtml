@@ -25,7 +25,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a>About</a></li>
-                    <li><a>Surrender</a></li>
+                    <li><a><div id="Surrender">Surrender</div></a></li>
                     <li><a>Backstep</a></li>
                     <li><a>Castle</a></li>
                     <li><a href="https://www.thechesswebsite.com/learn-to-play-chess/" target="_blank">Review Rules</a></li>
@@ -159,7 +159,8 @@
         </table>
     </center>
     <script>
-        let sessionId = Math.floor(Math.random() * 2);
+        let sessionId = 0;
+        let color;
     
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
@@ -183,6 +184,11 @@
             message.value = "";
         }
 
+        function Surrender(connection) {
+            connection.invoke("Surrender", sessionId, "Test").catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
@@ -203,6 +209,11 @@
 
             document.getElementById("SendMove").addEventListener("click", function (event) {
                 SendMove(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("Surrender").addEventListener("click", function (event) {
+                Surrender(connection);
                 event.preventDefault();
             });
 

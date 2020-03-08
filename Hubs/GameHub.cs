@@ -4,8 +4,10 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ChessSE181.Game;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
@@ -31,15 +33,47 @@ namespace ChessSE181.Hubs
             }
             catch (ArgumentNullException)
             {
-                sessionId = (StringValues) "1";
+                var random = new Random();
+                sessionId = (StringValues) random.Next(2).ToString();
                 await Groups.AddToGroupAsync(Context.ConnectionId, sessionId);
             }
 
-            _getBoard(sessionId);
-            
+            var board = _getBoard(sessionId);
+
+            Piece.Color color;
+            if (board.GetWhite() == null)
+            {
+                board.SetWhite(Clients.Caller);
+                color = Piece.Color.White;
+            }
+            else if (board.GetBlack() == null)
+            {
+                board.SetBlack(Clients.Caller);
+                color = Piece.Color.Black;
+            }
+            else
+            {
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, sessionId);
+                return;
+            }
+
             Console.WriteLine("Session ID: " + sessionId);
             await base.OnConnectedAsync();
-            await Clients.Caller.SendAsync("Register", sessionId);
+            await Clients.Caller.SendAsync("Register", sessionId, color);
+
+            await SendMessageToUser(Clients.Caller, "You are connected.");
+            await SendMessageToUser(Clients.Caller, "Your color is: " + color);
+            
+            if (board.IsInitialized())
+            {
+                await SendChatToGame(sessionId, "System", "Game is starting.");
+                await SendChatToGame(sessionId, "System", "White, it's your turn.");
+            }
+            else
+                await SendMessageToUser(Clients.Caller, "Waiting for a second player.");
+
+            Boards[sessionId] = board;
+
         }
         
         /*
@@ -59,6 +93,16 @@ namespace ChessSE181.Hubs
             Console.WriteLine("--NEW SEND MOVE CALL--");
             
             var board = _getBoard(sessionId);
+
+            if (!board.IsInitialized())
+                return;
+
+            // if (Clients.Caller != board.GetCurrentTurn())
+            // {
+            //     Console.WriteLine("{0}, {1}", Clients.Caller, board.GetCurrentTurn());
+            //     await SendMessageToUser(Clients.Caller, "Cannot make a move: it is not your turn.");
+            //     return;
+            // }
             
             var fromX = char.ToUpper(@from[0]) - 64 - 1;
             var fromY = @from[1] - 48 - 1;
@@ -97,6 +141,9 @@ namespace ChessSE181.Hubs
                 return;
             }
 
+            var targetedPiece = board.GetSpace(toX, toY).getPiece();
+            var killedKing = targetedPiece != null && targetedPiece.GetType() == typeof(King);
+
             board.SetSpace(tileTo.getX(), tileTo.getY(), tileFrom.getPiece());
             board.SetSpace(tileFrom.getX(), tileFrom.getY(), null);
             
@@ -110,16 +157,50 @@ namespace ChessSE181.Hubs
 
             // set turn
             await Clients.Group(sessionId).SendAsync("ReceiveMove", from, to);
+            if (killedKing)
+            {
+                await SendChatToGame(sessionId, "System", user + "'s king has been killed.");
+                await EndGame(sessionId, targetedPiece.GetColor());
+                return;
+            }
+
+            await SendMessageToUser(board.SwitchTurn(), "It's your turn.");
+
+            Boards[sessionId] = board;
         }
 
-        public async Task EndGame(string sessionId, string user)
+        public async Task EndGame(string sessionId, Piece.Color color)
         {
+            var winner = color switch
+            {
+                Piece.Color.White => "Black",
+                Piece.Color.Black => "White",
+                _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+            };
             
+            await SendChatToGame(sessionId, "System",winner + " player wins!");
+            Boards.Remove(sessionId);
         }
         
         public async Task Surrender(string sessionId, string user)
         {
+            var board = _getBoard(sessionId);
+
+            if (!board.IsInitialized())
+                return;
+            
             await SendChatToGame(sessionId, "System", user + " has surrendered.");
+            Piece.Color color;
+            var client = Clients.Caller;
+            
+            if (client.Equals(board.GetWhite()))
+                color = Piece.Color.White;
+            else if (client.Equals(board.GetBlack()))
+                color = Piece.Color.Black;
+            else
+                color = Piece.Color.White;
+            
+            await EndGame(sessionId, color);
         }
 
         public async Task EnableTimer(string sessionId, string user)
@@ -132,17 +213,22 @@ namespace ChessSE181.Hubs
             await SendChatToGame(sessionId, "System", user + " has disabled the timer.");
         }
 
-        public async Task SendMessageToUser(IClientProxy user, string message)
+        private static async Task SendMessageToUser(IClientProxy user, string message)
         {
             await user.SendAsync("ReceiveChat", "System", message);
         }
         
         public async Task SendChatToGame(string sessionId, string user, string message)
         {
+            var board = _getBoard(sessionId);
+
+            if (!board.IsInitialized())
+                return;
+            
             await Clients.Group(sessionId).SendAsync("ReceiveChat", user, message);
         }
 
-        private Board _getBoard(string session)
+        private static Board _getBoard(string session)
         {
             if (!Boards.ContainsKey(session))
             {
