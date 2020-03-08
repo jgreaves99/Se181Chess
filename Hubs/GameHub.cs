@@ -66,12 +66,11 @@ namespace ChessSE181.Hubs
             await Clients.Caller.SendAsync("Register", sessionId, color);
 
             await SendMessageToUser(Clients.Caller, "You are connected.");
-            await SendMessageToUser(Clients.Caller, "Your color is: " + color);
+            // await SendMessageToUser(Clients.Caller, "Your color is: " + color);
             
             if (board.IsInitialized())
             {
                 await SendChatToGame(sessionId, "System", "Game is starting.");
-                await SendChatToGame(sessionId, "System", "White, it's your turn.");
             }
             else
                 await SendMessageToUser(Clients.Caller, "Waiting for a second player.");
@@ -176,9 +175,7 @@ namespace ChessSE181.Hubs
                 await EndGame(sessionId);
                 return;
             }
-
-            await SendMessageToUser(board.SwitchTurn(), "It's your turn.");
-
+            
             Boards[sessionId] = board;
         }
 
