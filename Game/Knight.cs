@@ -14,11 +14,13 @@ namespace ChessSE181.Game
             if (IsPathBlocked(board, toX, toY))
                 return false;
             
-            if (Math.Abs(toY - fromY) == 2 && Math.Abs(toX - fromX) == 1 || 
-                Math.Abs(toY - fromY) == 1 && Math.Abs(toX - fromX) == 2) 
-                return true;
-            
-            return false;
+            // if (Math.Abs(toY - fromY) == 2 && Math.Abs(toX - fromX) == 1 || 
+            //     Math.Abs(toY - fromY) == 1 && Math.Abs(toX - fromX) == 2) 
+            //     return true;
+            //
+            // return false;
+
+            return true;
         }
     }
 }

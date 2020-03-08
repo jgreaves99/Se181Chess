@@ -53,7 +53,11 @@ namespace ChessSE181.Hubs
             }
             else
             {
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, sessionId);
+                await SendMessageToUser(Clients.Caller,
+                    "This game is already running. If this is an error, press \"Reset Game\" in the menu.");
+                await base.OnConnectedAsync();
+                await Clients.Caller.SendAsync("Register", sessionId, Piece.Color.White);
+                //await Groups.RemoveFromGroupAsync(Context.ConnectionId, sessionId);
                 return;
             }
 
@@ -179,6 +183,19 @@ namespace ChessSE181.Hubs
             };
             
             await SendChatToGame(sessionId, "System",winner + " player wins!");
+            await SendChatToGame(sessionId, "System","Refresh the page to start a new game.");
+            Boards.Remove(sessionId);
+        }
+        
+        public async Task DrawGame(string sessionId)
+        {
+            await SendChatToGame(sessionId, "System","Game drawn.");
+            Boards.Remove(sessionId);
+        }
+        
+        public async Task ResetGame(string sessionId)
+        {
+            await SendChatToGame(sessionId, "System","Game reset. Please refresh the page to start a new game.");
             Boards.Remove(sessionId);
         }
         

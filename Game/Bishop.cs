@@ -12,8 +12,8 @@ namespace ChessSE181.Game
 
         public override bool CanMove(Board board, int fromX, int fromY, int toX, int toY)
         {
-            // bishops can only move diagonally, dx must equal dy
-            if (Math.Abs(toX - fromX) != Math.Abs(toY - fromY)) return false;
+            // // bishops can only move diagonally, dx must equal dy
+            // if (Math.Abs(toX - fromX) != Math.Abs(toY - fromY)) return false;
             
             // otherwise just check if path is blocked
             return !IsPathBlocked(board, fromX, fromY, toX, toY);

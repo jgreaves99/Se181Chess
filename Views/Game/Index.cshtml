@@ -33,7 +33,8 @@
                     <li><a>Timer On</a></li>
                     <li><a href="/Game/Credits" target="_blank">Credits</a></li>
                     <li><a href="/Game/Tutorial" target="_blank">Tutorial</a></li>
-                    <li><a>Declare Draw</a></li>
+                    <li><a><div id="DrawGame">Declare Draw</div></a></li>
+                    <li><a><div id="ResetGame">Reset Game</div></a></li>
                 </ul>
             </li>
         </ul><br />
@@ -189,6 +190,18 @@
                 return console.error(err.toString());
             });
         }
+        
+        function Reset(connection) {
+            connection.invoke("ResetGame", sessionId).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+        
+        function DrawGame(connection) {
+            connection.invoke("DrawGame", sessionId).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
@@ -214,6 +227,16 @@
             
             document.getElementById("Surrender").addEventListener("click", function (event) {
                 Surrender(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("DrawGame").addEventListener("click", function (event) {
+                DrawGame(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("ResetGame").addEventListener("click", function (event) {
+                Reset(connection);
                 event.preventDefault();
             });
 

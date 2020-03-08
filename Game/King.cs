@@ -15,10 +15,10 @@ namespace ChessSE181.Game
             if (IsPathBlocked(board, toX, toY))
                 return false;
 
-            //if for castle
-            
-            if (Math.Abs(toY - fromY) > 1 || Math.Abs(toX - fromX) > 1) return false;
-
+            // //if for castle
+            //
+            // if (Math.Abs(toY - fromY) > 1 || Math.Abs(toX - fromX) > 1) return false;
+            //
             return true;
         }
     }
