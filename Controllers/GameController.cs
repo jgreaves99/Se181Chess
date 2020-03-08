@@ -19,6 +19,21 @@ namespace ChessSE181.Controllers
         {
             return View();
         }
+        
+        public IActionResult About()
+        {
+            return View();
+        }
+        
+        public IActionResult Credits()
+        {
+            return View();
+        }
+        
+        public IActionResult Tutorial()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

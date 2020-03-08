@@ -15,7 +15,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #E6E6FA;">
     <center>
         <h1>ChessBored</h1>
         <ul class="nav nav-tabs">
@@ -24,18 +24,20 @@
                     Menu
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a>About</a></li>
-                    <li><a>Surrender</a></li>
-                    <li><a>Backstep</a></li>
-                    <li><a>Castle</a></li>
+                    <li><a href="/Game/About" target="_blank">About</a></li>
+                    <li><a><div id="Surrender">Surrender</div></a></li>
                     <li><a href="https://www.thechesswebsite.com/learn-to-play-chess/" target="_blank">Review Rules</a></li>
                     <li><a href="https://www.youtube.com/watch?v=t-uwGvx4V_A" target="_blank">Instructional Video</a></li>
-                    <li><a>Timer On</a></li>
-                    <li><a href="./Credits.html" target="_blank">Credits</a></li>
-                    <li><a>Declare Draw</a></li>
+                    <li><a href="/Game/Credits" target="_blank">Credits</a></li>
+                    <li><a href="/Game/Tutorial" target="_blank">Tutorial</a></li>
+                    <li><a><div id="DrawGame">Declare Draw</div></a></li>
+                    <li><a><div id="ResetGame">Reset Game</div></a></li>
                 </ul>
             </li>
         </ul><br />
+        <p>
+            Hello, and welcome to ChessBored! If you are new and just joining, please be sure to check out the about tab to learn how this game works.
+        </p>
         <table>
             <tr>
                 <td width="500px">
@@ -122,10 +124,10 @@
                             <td height="50px" width="50px" bgcolor="ce6a85"><div id="a1"><div class="piece" id="whiteRook1" style="color:#FAA275">&#9820;</div></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="b1"><div class="piece" id="whiteKnight1" style="color:#FAA275">&#9822;</div></div></td>
                             <td height="50px" width="50px" bgcolor="ce6a85"><div id="c1"><div class="piece" id="whiteBishop1" style="color:#FAA275">&#9821;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d1"><div class="piece" id="whiteKing" style="color:#FAA275">&#9818;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="e1"><div class="piece" id="whiteQueen" style="color:#FAA275">&#9819;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f1"><div class="piece" id="whiteBishop2" style="color:#FAA275">&#9822;</div></div></td>
-                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="g1"><div class="piece" id="whiteKnight2" style="color:#FAA275">&#9821;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="d1"><div class="piece" id="whiteKing" style="color:#FAA275">&#9819;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="e1"><div class="piece" id="whiteQueen" style="color:#FAA275">&#9818;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="EAF9D1"><div id="f1"><div class="piece" id="whiteBishop2" style="color:#FAA275">&#9821;</div></div></td>
+                            <td height="50px" width="50px" bgcolor="ce6a85"><div id="g1"><div class="piece" id="whiteKnight2" style="color:#FAA275">&#9822;</div></div></td>
                             <td height="50px" width="50px" bgcolor="EAF9D1"><div id="h1"><div class="piece" id="whiteRook2" style="color:#FAA275">&#9820;</div></div></td>
                         </tr>
                         <tr>
@@ -141,30 +143,32 @@
                         </tr>
                     </table>
                     <br />
-                    <label>Select Piece to move:</label>
+                    <label>Select Piece to move:</label><br/>
                     <input type="text" id="PieceID" style="height:30px; width:330px; vertical-align:middle" />
-                    <button id="SendPiece" type="button" class="btn btn-primary" style="height:30px; width:100px">Select</button> <br /><br />
-                    <label>Move Piece to:</label>
+                    <button id="SendPiece" type="button" class="btn btn-primary" style="background-color:#5C374C; height:30px; width:100px">Select</button> <br /><br />
+                    <label>Move Piece to:</label> <br/>
                     <input type="text" id="MoveID" style="height:30px; width:330px; vertical-align:middle"/>
-                    <button id="SendMove" type="button" class="btn btn-primary" style="height:30px; width:100px">Make Move</button>
+                    <button id="SendMove" type="button" class="btn btn-primary" style="background-color:#5C374C; height:30px; width:100px">Make Move</button>
                 </td>
                 <td>
-                    <ul id="ChatTable" style="border:solid; height:400px; width:400px; list-style-type: none; list-style-position: inside; margin: 5px; padding: 5px; word-wrap: break-word; overflow:hidden; overflow-y:scroll;"></ul><br />
-                    <input type="text" id="ChatMessage" style="height:30px; width:330px; vertical-align:middle" />
-                    <button id="SendChat" type="button" class="btn btn-primary" style="vertical-align:center; horiz-align:center; height:30px; width:70px">Send</button>
+                    <label style="font-size: 20px;">Chat</label>                
+                    <ul id="ChatTable" style="border:solid; height:400px; width:400px; list-style-type: none; list-style-position: inside; margin: 5px; padding: 5px; word-wrap: break-word; overflow:hidden; overflow-y:scroll; background-color: white"></ul><br/>
+                    <input type="text" id="ChatMessage" style="height:30px; width:300px; vertical-align:middle"/>
+                    <button id="SendChat" type="button" class="btn btn-primary" style="background-color:#5C374C; #vertical-align:center; horiz-align:center; height:30px; width:70px">Send</button>
                 </td>
             </tr>
         </table>
     </center>
     <script>
-        let sessionId = Math.floor(Math.random() * 2);
+        let sessionId = 0;
+        let color;
     
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
             let message2 = document.getElementById("MoveID");
-            if (message1.value === "" || message2.value === "")
+            if (message1.value === "" || message2.value === "" || message1.value === message2.value)
                 return;
-            connection.invoke("SendMove", sessionId, "Test", message1.value, message2.value).catch(function (err) {
+            connection.invoke("SendMove", sessionId, "Test", message1.value.toLowerCase(), message2.value.toLowerCase()).catch(function (err) {
                 return console.error(err.toString());
             });
             message1.value = "";
@@ -175,12 +179,29 @@
             let message = document.getElementById("ChatMessage");
             if (message.value === "")
                 return;
-            connection.invoke("SendChat", sessionId, "Test", message.value).catch(function (err) {
+            connection.invoke("SendChatToGame", sessionId, "Test", message.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message.value = "";
         }
 
+        function Surrender(connection) {
+            connection.invoke("Surrender", sessionId, "Test").catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+        
+        function Reset(connection) {
+            connection.invoke("ResetGame", sessionId).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+        
+        function DrawGame(connection) {
+            connection.invoke("DrawGame", sessionId).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
@@ -201,6 +222,21 @@
 
             document.getElementById("SendMove").addEventListener("click", function (event) {
                 SendMove(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("Surrender").addEventListener("click", function (event) {
+                Surrender(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("DrawGame").addEventListener("click", function (event) {
+                DrawGame(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("ResetGame").addEventListener("click", function (event) {
+                Reset(connection);
                 event.preventDefault();
             });
 
