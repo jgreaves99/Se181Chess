@@ -24,7 +24,7 @@
                     Menu
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a>About</a></li>
+                    <li><a href="/Game/about">About</a></li>
                     <li><a><div id="Surrender">Surrender</div></a></li>
                     <li><a>Backstep</a></li>
                     <li><a>Castle</a></li>
@@ -38,6 +38,9 @@
                 </ul>
             </li>
         </ul><br />
+        <p>
+            Hello Welcome to ChessBoard! If you are new and just joining please be sure to check out the about tab to learn how this game works.
+        </p>
         <table>
             <tr>
                 <td width="500px">
@@ -166,9 +169,9 @@
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
             let message2 = document.getElementById("MoveID");
-            if (message1.value === "" || message2.value === "")
+            if (message1.value === "" || message2.value === "" || message1.value === message2.value)
                 return;
-            connection.invoke("SendMove", sessionId, "Test", message1.value, message2.value).catch(function (err) {
+            connection.invoke("SendMove", sessionId, "Test", message1.value.toLowerCase(), message2.value.toLowerCase()).catch(function (err) {
                 return console.error(err.toString());
             });
             message1.value = "";
