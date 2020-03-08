@@ -1,73 +1,65 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using System;
+using System.ComponentModel;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace ChessSE181.Game
 {
     public abstract class Piece
     {
-        private Tile tile;
-        private bool dead = false;
-        private bool white = false;
-        private bool black = false;
-
-        public Piece(string color)
+        public enum Color
         {
-            if (color == "white")
-            {
-                this.setWhite(white);
-            }
-            if (color == "black")
-            {
-                this.setBlack(black);
-            }
+            [Description("White")] White,
+            [Description("Black")] Black
         }
         
-        public bool isWhite() 
-        { 
-            return this.white == true; 
+        private Tile tile;
+        private readonly Color _color;
+        private bool _hasMoved;
+
+        protected Piece(string color)
+        {
+            _hasMoved = false;
+
+            _color = color switch
+            {
+                "white" => Color.White,
+                "black" => Color.Black,
+                _ => _color
+            };
+        }
+
+        public Color GetColor()
+        {
+            return _color;
+        }
+
+        public bool HasMoved()
+        {
+            return _hasMoved;
         }
 
         public void setTile(Tile start)
         {
             tile = start;
         }
-        public void setWhite(bool white) 
-        { 
-            this.white = white; 
+
+        public abstract bool CanMove(Board board, int fromX, int fromY, int toX, int toY);
+
+        protected bool IsPathBlocked(Board board, int toX, int toY)
+        {
+            var pieceTo = board.GetSpace(toX, toY).getPiece();
+            return pieceTo != null && pieceTo.GetColor().Equals(GetColor());
         }
         
-        public bool isBlack() 
-        { 
-            return this.black == true; 
-        } 
-  
-        public void setBlack(bool black) 
-        { 
-            this.black = black; 
-        }
-        
-        public bool isDead() 
-        { 
-            return this.dead == true; 
-        } 
-  
-        public void setDead(bool dead) 
-        { 
-            this.dead = dead; 
-        }
-
-        public virtual bool canMove(Board board, Tile start, Tile end)
+        public void PieceMoved()
         {
-            start.setPiece(null);
-            end.setPiece(this);
-            tile = end;
-            return true;
+            if (!_hasMoved)
+                _hasMoved = true;
         }
 
-        public abstract void move(Board board, Tile start, Tile end);
-
-        public void movePiece(Board board, Tile start, Tile end)
+        protected int getIncrementer(int number)
         {
-            
+            return 0;
         }
     }
 }

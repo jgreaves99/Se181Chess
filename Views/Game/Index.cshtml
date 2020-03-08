@@ -25,15 +25,16 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a>About</a></li>
-                    <li><a>Surrender</a></li>
+                    <li><a><div id="Surrender">Surrender</div></a></li>
                     <li><a>Backstep</a></li>
                     <li><a>Castle</a></li>
                     <li><a href="https://www.thechesswebsite.com/learn-to-play-chess/" target="_blank">Review Rules</a></li>
                     <li><a href="https://www.youtube.com/watch?v=t-uwGvx4V_A" target="_blank">Instructional Video</a></li>
                     <li><a>Timer On</a></li>
-                    <li><a href="../../Views/Game/Credits.html" target="_blank">Credits</a></li>
-                    <li><a href="../../Views/Game/Tutorial.html" target="_blank">Tutorial</a></li>
-                    <li><a>Declare Draw</a></li>
+                    <li><a href="/Game/Credits" target="_blank">Credits</a></li>
+                    <li><a href="/Game/Tutorial" target="_blank">Tutorial</a></li>
+                    <li><a><div id="DrawGame">Declare Draw</div></a></li>
+                    <li><a><div id="ResetGame">Reset Game</div></a></li>
                 </ul>
             </li>
         </ul><br />
@@ -159,7 +160,8 @@
         </table>
     </center>
     <script>
-        let sessionId = Math.floor(Math.random() * 2);
+        let sessionId = 0;
+        let color;
     
         function SendMove(connection) {
             let message1 = document.getElementById("PieceID");
@@ -177,12 +179,29 @@
             let message = document.getElementById("ChatMessage");
             if (message.value === "")
                 return;
-            connection.invoke("SendChat", sessionId, "Test", message.value).catch(function (err) {
+            connection.invoke("SendChatToGame", sessionId, "Test", message.value).catch(function (err) {
                 return console.error(err.toString());
             });
             message.value = "";
         }
 
+        function Surrender(connection) {
+            connection.invoke("Surrender", sessionId, "Test").catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+        
+        function Reset(connection) {
+            connection.invoke("ResetGame", sessionId).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+        
+        function DrawGame(connection) {
+            connection.invoke("DrawGame", sessionId).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
 
         $(function () {
             const connection = new signalR.HubConnectionBuilder()
@@ -203,6 +222,21 @@
 
             document.getElementById("SendMove").addEventListener("click", function (event) {
                 SendMove(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("Surrender").addEventListener("click", function (event) {
+                Surrender(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("DrawGame").addEventListener("click", function (event) {
+                DrawGame(connection);
+                event.preventDefault();
+            });
+            
+            document.getElementById("ResetGame").addEventListener("click", function (event) {
+                Reset(connection);
                 event.preventDefault();
             });
 
