@@ -163,8 +163,17 @@ namespace ChessSE181.Hubs
             await Clients.Group(sessionId).SendAsync("ReceiveMove", from, to);
             if (killedKing)
             {
+                var color = targetedPiece.GetColor();
+                var winner = color switch
+                {
+                    Piece.Color.White => "Black",
+                    Piece.Color.Black => "White",
+                    _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+                };
+
                 await SendChatToGame(sessionId, "System", user + "'s king has been killed.");
-                await EndGame(sessionId, targetedPiece.GetColor());
+                await SendChatToGame(sessionId, "System",winner + " player wins!");
+                await EndGame(sessionId);
                 return;
             }
 
@@ -173,16 +182,8 @@ namespace ChessSE181.Hubs
             Boards[sessionId] = board;
         }
 
-        public async Task EndGame(string sessionId, Piece.Color color)
+        public async Task EndGame(string sessionId)
         {
-            var winner = color switch
-            {
-                Piece.Color.White => "Black",
-                Piece.Color.Black => "White",
-                _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
-            };
-            
-            await SendChatToGame(sessionId, "System",winner + " player wins!");
             await SendChatToGame(sessionId, "System","Refresh the page to start a new game.");
             Boards.Remove(sessionId);
         }
@@ -190,13 +191,13 @@ namespace ChessSE181.Hubs
         public async Task DrawGame(string sessionId)
         {
             await SendChatToGame(sessionId, "System","Game drawn.");
-            Boards.Remove(sessionId);
+            await EndGame(sessionId);
         }
         
         public async Task ResetGame(string sessionId)
         {
-            await SendChatToGame(sessionId, "System","Game reset. Please refresh the page to start a new game.");
-            Boards.Remove(sessionId);
+            await SendChatToGame(sessionId, "System","Game reset.");
+            await EndGame(sessionId);
         }
         
         public async Task Surrender(string sessionId, string user)
@@ -217,7 +218,7 @@ namespace ChessSE181.Hubs
             else
                 color = Piece.Color.White;
             
-            await EndGame(sessionId, color);
+            await EndGame(sessionId);
         }
 
         public async Task EnableTimer(string sessionId, string user)
