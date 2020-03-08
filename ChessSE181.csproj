@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <UserSecretsId>aspnet-ChessSE181-597BB86E-CA2B-49FC-9475-F4ED6067CEC3</UserSecretsId>
+        <StartupObject>ChessSE181.Program</StartupObject>
     </PropertyGroup>
 
 
@@ -15,6 +16,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="coverlet.collector" Version="1.2.0">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
@@ -25,6 +30,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
+        <PackageReference Include="Microsoft.NET.test.Sdk" Version="16.5.0" />
     </ItemGroup>
 
     <ItemGroup>
